@@ -11,56 +11,33 @@
  */
 
 var lengthOfLongestSubstring = function(s) {
-  /**
-     * both ptrs at 0 (a)
-     * map empty, add a to map and move right ptr to 1 (b)
-     * add b to map, move right ptr to 2 (c)
-     * add c to map, move right ptr to 3 (a)
-     * a already in map, record 3 as longest
-     * set left and right to 1 (b)
-     * map empty, add b. move right ptr to 2(c)
-     * add c to map, move right ptr to 3(a)
-     * add a to map, move right ptr to 4(b)
-     * b is in map, 3 is not larger than 3
-     * set left and right ptr to 2 (c)
-     * 
-     * when reach the end, check for length and possibly override solution
-     * 
-     */
-    let leftPtr = 0;
-    let rightPtr = 0;
-    let solution = 0;
+  let leftPtr = 0;
+  let rightPtr = 0;
+  let solution = 0;
 
-    while (leftPtr + solution < s.length) {
-      const map = {}
+  while (leftPtr + solution < s.length) {
+    const map = {}
 
-      while (map[s.charAt(rightPtr)] === undefined && rightPtr < s.length) {
-        map[s.charAt(rightPtr)] = rightPtr;
-        rightPtr++;
-      }
-
-      if (rightPtr - leftPtr > solution) {
-        solution = rightPtr - leftPtr;
-      }
-
-      if (rightPtr === s.length) {
-        return solution
-      }
-
-      if (map[s.charAt(rightPtr)] !== undefined) {
-        leftPtr = map[s.charAt(rightPtr)] + 1;
-        rightPtr = leftPtr;
-      }
+    while (map[s.charAt(rightPtr)] === undefined && rightPtr < s.length) {
+      map[s.charAt(rightPtr)] = rightPtr;
+      rightPtr++;
     }
-    return solution;
-};
-/**
- * 01
- * au
- * 
- * l = r = 0
- */
 
+    if (rightPtr - leftPtr > solution) {
+      solution = rightPtr - leftPtr;
+    }
+
+    if (rightPtr === s.length) {
+      return solution
+    }
+
+    if (map[s.charAt(rightPtr)] !== undefined) {
+      leftPtr = map[s.charAt(rightPtr)] + 1;
+      rightPtr = leftPtr;
+    }
+  }
+  return solution;
+};
 
 // Test Cases
 const input1 = "abcabcbb"
